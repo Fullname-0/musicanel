@@ -9,6 +9,8 @@ import {AuthContextProvider} from "./store/auth-context";
 import {RegistContextProvider} from "./store/regist-context";
 import {SnackbarContextProvider} from "./store/snackbar-context";
 import Layout from "./layout/Layout";
+import {Provider} from 'react-redux';
+import store from "./store";
 
 let theme = createTheme({
     palette: {
@@ -45,11 +47,13 @@ root.render(
           <SnackbarContextProvider>
               <AuthContextProvider>
                   <RegistContextProvider>
-                      <BrowserRouter>
-                          <Layout>
-                              <App />
-                          </Layout>
-                      </BrowserRouter>
+                      <Provider store={store}>
+                          <BrowserRouter>
+                              <Layout>
+                                  <App />
+                              </Layout>
+                          </BrowserRouter>
+                      </Provider>
                   </RegistContextProvider>
               </AuthContextProvider>
           </SnackbarContextProvider>
