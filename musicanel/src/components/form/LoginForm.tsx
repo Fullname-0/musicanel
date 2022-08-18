@@ -6,7 +6,7 @@ import React, {useContext, useEffect, useState} from "react";
 import AuthContext from "../../store/auth-context";
 import SnackbarContext from "../../store/snackbar-context";
 import validator from 'validator';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 
 const ButtonStyled = styled(Button)(({ theme }) => ({
     textAlign: 'center',
@@ -26,6 +26,11 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
         boxShadow: 'none',
         transform: 'scale(105%)',
         border: 'none'
+    },
+
+    '& a': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'none'
     }
 }))
 
@@ -194,7 +199,7 @@ const LoginForm = () => {
             </Grid>
             <Grid item pt={4} sx={{textAlign: 'center', borderTop: '1px solid black', width: '400px'}}>
                 <Typography pb={4}>Nie masz jeszcze konta? Zarejestruj się!</Typography>
-                <ButtonStyled sx={{backgroundColor: 'transparent', border: '1px solid black'}}>Załóż konto</ButtonStyled>
+                <ButtonStyled sx={{backgroundColor: 'transparent', border: '1px solid black'}}><Link to="/signup">Załóż konto</Link></ButtonStyled>
             </Grid>
         </Grid>
     )

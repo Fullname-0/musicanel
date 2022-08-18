@@ -17,8 +17,8 @@ export const loginRequest = async (data: {email: string, password: string}, onEr
         })
         if(response.status === 200) {
             onError && onError({msg: 'Zalogowano się pomyślnie!', severity: 'success'})
+            return response.data;
         }
-        return response.data;
     } catch(error: any) {
         if(error.response.status === 400 && error.response.data.error.message === 'EMAIL_NOT_FOUND') {
             onError && onError({msg: "Brak użytkownika! Zarejestruj się już teraz!", severity: 'error'})

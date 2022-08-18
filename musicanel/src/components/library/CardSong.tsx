@@ -1,18 +1,31 @@
 import {Grid, Card, Box, CardContent, Typography, CardMedia, IconButton} from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import {useEffect, useState} from "react";
+import PauseIcon from '@mui/icons-material/Pause';
+import {useEffect, useRef, useState} from "react";
 
 const CardSong = (props: any) => {
     const [title, setTitle] = useState('')
+    const [play, setPlay] = useState(false)
+    const audioPlay = useRef(new Audio())
+
+    useEffect(() => {
+        regexOfNameSong(props.songs.name)
+    }, [props.songs])
 
     const regexOfNameSong = (text: string) => {
         let title = text.replace(/.mp3|_/g, ' ')
         setTitle(title)
     }
 
-    useEffect(() => {
-        regexOfNameSong(props.songs.name)
-    }, [props.songs])
+    const togglePlay = () => {
+        audioPlay.current.play()
+        setPlay(!play)
+    }
+
+    const togglePause = () => {
+        audioPlay.current.pause()
+        setPlay(!play)
+    }
 
     return (
         <Grid container mt={6}>
@@ -24,11 +37,17 @@ const CardSong = (props: any) => {
                         </Typography>
                     </CardContent>
                     <Box>
-                        <IconButton aria-label="play/pause">
-                            <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-                        </IconButton>
+                        {play ?
+                            <IconButton aria-label="play/pause" onClick={togglePause}>
+                                <PauseIcon sx={{height: 38, width: 38}} />
+                            </IconButton> :
+                            <IconButton aria-label="play/pause" onClick={togglePlay}>
+                                <PlayArrowIcon
+                                    sx={{height: 38, width: 38}} />
+                            </IconButton>
+                        }
                         <figure>
-                            <audio>
+                            <audio ref={audioPlay}>
                                 <source src={`${props.songs.url}.mp3`} type="audio/mpeg" />
                             </audio>
                         </figure>

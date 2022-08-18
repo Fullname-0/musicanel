@@ -1,7 +1,8 @@
-import {Grid} from "@mui/material";
+import {Grid, Box} from "@mui/material";
 import {useSelector} from "react-redux";
 import CardSong from './CardSong';
 import {useState, useEffect} from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MainLayout = () => {
     const songs = useSelector((state: {songs: {songs: []}}) => state.songs.songs)
@@ -19,7 +20,7 @@ const MainLayout = () => {
             {!isloading ?
                 songs.map((item: any, index: number) => {
                     return <CardSong key={index} images={images[index]} songs={songs[index]} />
-            }) : <h1>Brak utworów</h1>
+                }) : <Box pt={10}><CircularProgress /></Box>
             }
         </Grid>
     )

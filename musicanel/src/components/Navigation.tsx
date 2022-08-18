@@ -50,9 +50,11 @@ const Navigation = () => {
                         </Link>
                     </Grid>
                     <Grid item sx={{display: 'flex', alignItems: 'center', gap: '80px'}}>
-                        <LinkButton sx={{typography: 'body1'}}>
-                            <Link to="/library">Biblioteka</Link>
-                        </LinkButton>
+                        {isLoggedIn &&
+                            <LinkButton sx={{typography: 'body1'}}>
+                                <Link to="/library">Biblioteka</Link>
+                            </LinkButton>
+                        }
                         {!isLoggedIn &&
                             <LinkButton sx={{typography: 'body1'}}>
                                 <Link to="/signup">Zarejestruj się</Link>
